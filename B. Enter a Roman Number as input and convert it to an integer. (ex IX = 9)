@@ -1,0 +1,38 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class RomanToInteger {
+    public static int romanToInt(String s) {
+        // Create a mapping of Roman numerals to integers
+        Map<Character, Integer> romanMap = new HashMap<>();
+        romanMap.put('I', 1);
+        romanMap.put('V', 5);
+        romanMap.put('X', 10);
+        romanMap.put('L', 50);
+        romanMap.put('C', 100);
+        romanMap.put('D', 500);
+        romanMap.put('M', 1000);
+
+        int result = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            int currentNum = romanMap.get(s.charAt(i));
+            
+            // If there's a next character and it has a greater value, subtract the current value
+            if (i + 1 < s.length() && romanMap.get(s.charAt(i + 1)) > currentNum) {
+                result -= currentNum;
+            } else {
+                result += currentNum;
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+        // Test the romanToInt method
+        String romanNumeral = "IX"; // Change this to the Roman numeral you want to convert
+        int intValue = romanToInt(romanNumeral);
+        System.out.println("Roman numeral " + romanNumeral + " is equivalent to " + intValue);
+    }
+}
